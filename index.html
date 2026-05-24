@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="description" content="XQ Music">
+  <meta name="theme-color" content="#669df6">
+  <title>XQ Music</title>
+  <script>history.scrollRestoration = 'manual';</script>
+  <link rel="icon" type="image/webp" href="right_icon_6f50e56a_inverted.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="U5Font_Round_7744b500.woff2" as="font" type="font/woff2" crossorigin>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'U5Font';
+      src: url('U5Font_Round_7744b500.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --md-primary: #669df6;
+      --md-on-primary: #ffffff;
+      --md-primary-container: #d6e3ff;
+      --md-on-primary-container: #001d35;
+      --md-secondary: #f06292;
+      --md-on-secondary: #ffffff;
+      --md-secondary-container: #fad8fd;
+      --md-on-secondary-container: #3e0020;
+      --md-background: #fffbfe;
+      --md-on-background: #1b1b1f;
+      --md-surface: #fffbfe;
+      --md-on-surface: #1b1b1f;
+      --md-surface-variant: #e7e0ec;
+      --md-on-surface-variant: #44474f;
+      --md-outline: #73777f;
+      --md-outline-variant: #c4c6cf;
+      --md-surface-container-lowest: #ffffff;
+      --md-surface-container-low: #f2f3fa;
+      --md-surface-container: #ebebF4;
+      --md-surface-container-high: #e0e0e9;
+      --md-surface-container-highest: #d4d4dd;
+      --md-error: #b3261e;
+      --md-on-error: #ffffff;
+      --md-error-container: #ffcdd2;
+      --md-on-error-container: #b71c1c;
+      --md-tertiary: #7d5260;
+      --md-on-tertiary: #ffffff;
+      --md-tertiary-container: #fff9c4;
+      --md-on-tertiary-container: #f57f17;
+      --md-ease-2: cubic-bezier(0.2, 0, 0.2, 1);
+      --md-motion-3: 150ms;
+      --md-motion-4: 200ms;
+      --md-motion-5: 250ms;
+      --md-motion-6: 300ms;
+      --md-sys-shape-corner-small: 8px;
+      --md-sys-shape-corner-medium: 12px;
+      --md-sys-shape-corner-large: 16px;
+      --md-sys-shape-corner-extra-large: 28px;
+      --md-sys-shape-corner-full: 50px;
+      --md-scrim: rgba(0, 0, 0, 0.32);
+      font-family: 'U5Font', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      transition: background-color var(--md-motion-5), color var(--md-motion-5);
+    }
+    [data-theme="dark"] {
+      --md-primary: #8ab4f8;
+      --md-on-primary: #003a70;
+      --md-primary-container: #004881;
+      --md-on-primary-container: #d6e3ff;
+      --md-secondary: #f7a8c1;
+      --md-on-secondary: #5c1135;
+      --md-secondary-container: #7b2950;
+      --md-on-secondary-container: #fad8fd;
+      --md-background: #242428;
+      --md-on-background: #e6e1e5;
+      --md-surface: #242428;
+      --md-on-surface: #e6e1e5;
+      --md-surface-variant: #3d3d44;
+      --md-on-surface-variant: #c4c6cf;
+      --md-outline: #8e9196;
+      --md-outline-variant: #3d3d44;
+      --md-surface-container-lowest: #2b2b2f;
+      --md-surface-container-low: #32323a;
+      --md-surface-container: #3a3a42;
+      --md-surface-container-high: #42424a;
+      --md-surface-container-highest: #4a4a52;
+      --md-error: #f2b8b5;
+      --md-on-error: #601410;
+      --md-error-container: #8c1d18;
+      --md-on-error-container: #f9dedc;
+      --md-tertiary: #efb8c8;
+      --md-on-tertiary: #492532;
+      --md-tertiary-container: #4a3f00;
+      --md-on-tertiary-container: #ffe082;
+      --md-scrim: rgba(0, 0, 0, 0.5);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: inherit; background: var(--md-background); color: var(--md-on-background); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; border: none; background: none; cursor: pointer; outline: none; position: relative; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--md-surface-container-low); }
+    ::-webkit-scrollbar-thumb { background: var(--md-outline-variant); border-radius: var(--md-sys-shape-corner-full); border: 2px solid var(--md-surface-container-low); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--md-outline); }
+    ::selection { background: var(--md-primary-container); color: var(--md-on-primary-container); }
+
+    .ripple-host { position: relative; overflow: hidden; }
+    .ripple-span {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple-effect 0.6s linear;
+      pointer-events: none;
+      z-index: 0;
+      background: var(--md-on-surface);
+      opacity: 0.12;
+    }
+    [data-theme="dark"] .ripple-span { opacity: 0.25; }
+    @keyframes ripple-effect {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    .drawer-backdrop {
+      position: fixed; inset: 0;
+      background: var(--md-scrim);
+      z-index: 8199;
+      opacity: 0; visibility: hidden;
+      transition: opacity var(--md-motion-5) ease, visibility var(--md-motion-5);
+      backdrop-filter: blur(4px);
+    }
+    .drawer-backdrop.visible { opacity: 0.4; visibility: visible; }
+
+    .drawer {
+      position: fixed; top: 0; left: 0; bottom: 0;
+      width: 360px;
+      max-width: calc(100vw - 72px);
+      background: var(--md-surface);
+      z-index: 8200;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(-100%);
+      transition: transform var(--md-motion-6) var(--md-ease-2);
+      will-change: transform;
+      box-shadow: 16px 0 48px rgba(0, 0, 0, 0.15);
+      border-top-right-radius: var(--md-sys-shape-corner-extra-large);
+      border-bottom-right-radius: var(--md-sys-shape-corner-extra-large);
+      overflow: hidden;
+    }
+    .drawer.open { transform: translateX(0); }
+
+    .drawer-header {
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 24px;
+      background: var(--md-primary-container);
+    }
+    .drawer-avatar {
+      width: 56px; height: 56px; border-radius: var(--md-sys-shape-corner-full);
+      background: var(--md-primary);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .drawer-info { flex: 1; }
+    .drawer-name { font-size: 24px; font-weight: 400; color: var(--md-on-primary-container); line-height: 1.2; }
+    .drawer-sub { font-size: 14px; color: var(--md-on-primary-container); opacity: 0.8; margin-top: 4px; }
+
+    .drawer-nav { flex: 1; overflow-y: auto; padding: 12px; }
+    .drawer-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: var(--md-sys-shape-corner-large);
+      cursor: pointer;
+      transition: background var(--md-motion-3) var(--md-ease-2);
+      position: relative;
+    }
+    .drawer-item:hover { background: var(--md-surface-container-high); }
+    .drawer-item.active { background: var(--md-secondary-container); }
+    .drawer-item .icon { font-size: 24px; color: var(--md-on-surface-variant); transition: color var(--md-motion-3); flex-shrink: 0; }
+    .drawer-item:hover .icon { color: var(--md-primary); }
+    .drawer-item.active .icon { color: var(--md-on-secondary-container); }
+    .drawer-item-title { font-size: 14px; font-weight: 500; color: var(--md-on-surface); }
+    .drawer-item.active .drawer-item-title { color: var(--md-on-secondary-container); }
+    .drawer-divider { height: 1px; background: var(--md-outline-variant); margin: 8px 12px; }
+    .drawer-item-icon-end { font-size: 18px; color: var(--md-on-surface-variant); opacity: 0.6; }
+    .drawer-item a { text-decoration: none; color: inherit; }
+
+    .top-app-bar {
+      position: fixed; top: 0; left: 0; right: 0; height: 64px;
+      background: var(--md-surface-container-low); z-index: 8000;
+      display: flex; align-items: center; padding: 0 16px; gap: 12px;
+      border-bottom: 1px solid var(--md-outline-variant);
+    }
+    .top-app-bar-title { font-size: 22px; font-weight: 400; color: var(--md-on-surface); flex: 1; }
+    .top-bar-actions { display: flex; align-items: center; gap: 4px; }
+    .icon-btn {
+      width: 48px; height: 48px; border-radius: var(--md-sys-shape-corner-full);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--md-motion-3) var(--md-ease-2);
+    }
+    .icon-btn:hover { background: var(--md-surface-container-high); }
+    .icon-btn .material-icons-round { font-size: 24px; color: var(--md-on-surface-variant); }
+    .search-bar {
+      flex: 1; min-width: 180px; max-width: 420px;
+      display: flex; align-items: center; gap: 8px;
+      background: var(--md-surface-container-highest);
+      border-radius: 100px; padding: 0 16px; height: 40px;
+      outline: 1.5px solid transparent; transition: outline var(--md-motion-3), background var(--md-motion-3);
+    }
+    .search-bar:focus-within { outline-color: var(--md-primary); background: var(--md-surface-container-lowest); }
+    .search-bar .material-icons-round { font-size: 20px; color: var(--md-on-surface-variant); flex-shrink: 0; }
+    .search-bar input { flex: 1; border: none; background: transparent; outline: none; font-size: 14px; font-family: inherit; color: var(--md-on-surface); }
+    .search-bar input::placeholder { color: var(--md-on-surface-variant); }
+    .search-clear { display: none; background: none; border: none; cursor: pointer; color: var(--md-on-surface-variant); padding: 2px; border-radius: 50%; flex-shrink: 0; }
+    .search-clear .material-icons-round { font-size: 18px; }
+
+    .navigation-rail {
+      position: fixed; top: 64px; left: 0; bottom: 96px; width: 80px;
+      background: var(--md-surface-container-low); z-index: 8001;
+      display: flex; flex-direction: column; align-items: center; padding: 12px 0;
+      border-right: 1px solid var(--md-outline-variant);
+      transition: margin-left var(--md-motion-4);
+    }
+    @media (max-width: 768px) {
+      .navigation-rail { display: none; }
+    }
+    .nav-rail-item {
+      width: 56px; height: 56px; border-radius: var(--md-sys-shape-corner-large);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+      cursor: pointer; margin: 4px 0;
+      transition: background var(--md-motion-3) var(--md-ease-2), width var(--md-motion-3);
+    }
+    @media (max-width: 768px) {
+      .nav-rail-item { width: 100%; height: 48px; margin: 0; flex-direction: row; justify-content: flex-start; gap: 12px; padding: 0 16px; border-radius: var(--md-sys-shape-corner-medium); }
+      .nav-rail-item .label { font-size: 14px; }
+    }
+    .nav-rail-item:hover { background: var(--md-surface-container-high); }
+    .nav-rail-item.active { background: var(--md-secondary-container); }
+    .nav-rail-item .icon { font-size: 24px; color: var(--md-on-surface-variant); transition: color var(--md-motion-3); }
+    .nav-rail-item.active .icon { color: var(--md-on-secondary-container); }
+    .nav-rail-item .label { font-size: 10px; font-weight: 500; color: var(--md-on-surface-variant); letter-spacing: 0.5px; }
+    .nav-rail-item.active .label { color: var(--md-on-secondary-container); }
+    @media (max-width: 768px) { .nav-rail-item .label { display: inline; } }
+
+    .main-wrapper {
+      display: flex; padding-top: 64px; min-height: 100vh;
+    }
+    @media (max-width: 768px) {
+      .main-wrapper { flex-direction: column; padding-top: 64px; padding-bottom: 96px; }
+    }
+
+    .page-content {
+      flex: 1;
+      padding: 14px 16px; gap: 10px;
+      padding-bottom: 120px;
+      display: flex; flex-direction: column;
+      min-height: calc(100vh - 64px);
+      max-width: 1200px;
+      margin-left: 80px;
+      box-sizing: border-box;
+      transition: margin-left var(--md-motion-4);
+    }
+    @media (min-width: 1280px) {
+      .page-content { margin-left: calc(80px + (100vw - 80px - 1200px) / 2); }
+    }
+    @media (max-width: 768px) {
+      .page-content { margin-left: 0; width: 100%; max-width: none; padding-bottom: 0; min-height: calc(100vh - 64px - 64px); padding: 10px; gap: 8px; }
+    }
+    .page-view {
+      display: none; flex-direction: column; flex: 1; overflow: hidden;
+    }
+    .page-view.active { display: flex; }
+
+    .loading-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+      flex: 1; padding: 48px 24px; color: var(--md-on-surface-variant);
+    }
+    .loading-state .spinner {
+      width: 40px; height: 40px; border: 3px solid var(--md-outline-variant);
+      border-top-color: var(--md-primary); border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-state p { font-size: 14px; }
+
+    .song-list-card {
+      background: var(--md-surface-container-lowest);
+      border-radius: var(--md-sys-shape-corner-large);
+      border: 1px solid var(--md-outline-variant);
+      overflow: hidden; flex: 1; min-height: 0;
+      display: flex; flex-direction: column;
+    }
+    .list-header {
+      padding: 10px 16px; font-size: 12px; font-weight: 500;
+      color: var(--md-on-surface-variant);
+      background: var(--md-surface-container-low);
+      border-bottom: 1px solid var(--md-outline-variant);
+    }
+    .list-header .list-icon-col { width: 36px; }
+    .list-title { font-size: 12px; font-weight: 500; margin-left: 8px; }
+    .list-header .list-meta-col { width: 100px; text-align: right; }
+    .song-list { flex: 1; overflow-y: auto; min-height: 0; scroll-padding-bottom: 8px; padding-bottom: 8px; }
+    .song-item {
+      display: grid; grid-template-columns: 36px 1fr 100px;
+      padding: 13px 18px; font-size: 14px; cursor: pointer;
+      align-items: center;
+      border-bottom: 1px solid var(--md-surface-container);
+      transition: background var(--md-motion-3);
+      box-sizing: border-box;
+    }
+    .song-item:last-child { border-bottom: none; }
+    .song-item:hover { background: var(--md-surface-container-low); }
+    .song-item.active { background: var(--md-primary-container); }
+    .song-icon {
+      display: flex; align-items: center; justify-content: flex-start;
+      color: var(--md-on-surface-variant); flex-shrink: 0;
+      padding-left: 2px;
+    }
+    .song-icon .material-icons-round { font-size: 20px; }
+    .song-item.active .song-icon { color: var(--md-on-primary-container); }
+    .song-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 12px; }
+    .song-title-text { font-size: 14px; font-weight: 500; color: var(--md-on-surface); font-family: inherit; }
+    .song-item.active .song-title-text { color: var(--md-on-primary-container); }
+    .song-sub { font-size: 12px; color: var(--md-on-surface-variant); margin-top: 2px; }
+    .song-item.active .song-sub { color: var(--md-on-primary-container); opacity: 0.7; }
+    .song-meta {
+      display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+      color: var(--md-on-surface-variant); font-size: 12px;
+    }
+    .fav-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 50%;
+      color: var(--md-on-surface-variant); transition: color var(--md-motion-3);
+      flex-shrink: 0;
+    }
+    .fav-btn:hover { color: var(--md-secondary); }
+    .fav-btn.liked { color: var(--md-secondary) !important; }
+    .fav-btn .material-icons-round { font-size: 20px; }
+    .playing-indicator { display: none; align-items: center; gap: 2px; height: 16px; flex-shrink: 0; }
+    .song-item.active .playing-indicator { display: flex; }
+    .playing-indicator span {
+      width: 3px; background: var(--md-on-primary-container);
+      border-radius: 1px; animation: soundBar 0.8s ease-in-out infinite alternate;
+    }
+    .playing-indicator span:nth-child(1) { height: 6px; animation-delay: 0s; }
+    .playing-indicator span:nth-child(2) { height: 10px; animation-delay: 0.2s; }
+    .playing-indicator span:nth-child(3) { height: 4px; animation-delay: 0.4s; }
+    .playing-indicator span:nth-child(4) { height: 8px; animation-delay: 0.1s; }
+    @keyframes soundBar { 0% { transform: scaleY(0.3); } 100% { transform: scaleY(1); } }
+
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+      flex: 1; padding: 48px 24px; color: var(--md-on-surface-variant); text-align: center;
+    }
+    .empty-state .material-icons-round { font-size: 64px; opacity: 0.4; }
+    .empty-state p { font-size: 14px; }
+
+    .settings-list { flex: 1; overflow-y: auto; }
+    .settings-layout { display: flex; height: 100%; overflow: hidden; gap: 16px; }
+    .settings-sidebar {
+      width: 200px; background: var(--md-surface-container-lowest); flex-shrink: 0;
+      padding: 16px 8px; display: flex; flex-direction: column; gap: 4px;
+      border-radius: var(--md-sys-shape-corner-large);
+      border: 1px solid var(--md-outline-variant);
+    }
+    .settings-category-item {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      border-radius: var(--md-sys-shape-corner-large); cursor: pointer;
+      color: var(--md-on-surface-variant); font-size: 14px; font-weight: 500;
+      transition: background var(--md-motion-3), color var(--md-motion-3);
+      position: relative; overflow: hidden;
+    }
+    .settings-category-item:hover { background: var(--md-surface-container-high); }
+    .settings-category-item.active { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+    .settings-category-item .material-icons-round { font-size: 20px; }
+    .settings-content {
+      flex: 1; overflow-y: auto; padding: 20px;
+      background: var(--md-surface-container-lowest);
+      border-radius: var(--md-sys-shape-corner-large);
+      border: 1px solid var(--md-outline-variant);
+    }
+    .settings-panel { display: none; }
+    .settings-panel.active { display: block; }
+    .settings-panel-title {
+      font-size: 20px; font-weight: 500; color: var(--md-on-surface);
+      margin-bottom: 16px;
+    }
+    .settings-section-title {
+      font-size: 12px; font-weight: 500; color: var(--md-on-surface-variant);
+      text-transform: uppercase; letter-spacing: 1px; padding: 20px 16px 8px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .settings-section-title::after { content: ''; flex: 1; height: 1px; background: var(--md-outline-variant); }
+    .settings-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px; border-radius: var(--md-sys-shape-corner-large);
+      transition: background var(--md-motion-3); cursor: pointer;
+      margin-bottom: 8px;
+    }
+    .settings-item:last-child { margin-bottom: 0; }
+    .settings-item:hover { background: var(--md-surface-container-high); }
+    .settings-item-info { display: flex; align-items: center; gap: 16px; flex: 1; }
+    .settings-icon {
+      width: 40px; height: 40px; border-radius: var(--md-sys-shape-corner-medium);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--md-surface-container); flex-shrink: 0;
+    }
+    .settings-icon .material-icons-round { font-size: 20px; color: var(--md-on-surface-variant); }
+    .settings-text .title { font-size: 15px; font-weight: 500; color: var(--md-on-surface); }
+    .settings-text .desc { font-size: 12px; color: var(--md-on-surface-variant); margin-top: 2px; }
+
+    .md3-switch {
+      position: relative; width: 52px; height: 32px; flex-shrink: 0;
+      border-radius: 16px; background: var(--md-outline); cursor: pointer;
+      transition: background var(--md-motion-3), box-shadow var(--md-motion-3);
+      outline: none; border: none; -webkit-tap-highlight-color: transparent; user-select: none;
+    }
+    .md3-switch::after {
+      content: ''; position: absolute; top: 4px; left: 4px;
+      width: 24px; height: 24px; border-radius: 12px;
+      background: var(--md-surface);
+      transition: transform var(--md-motion-3) var(--md-ease-2), background var(--md-motion-3);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .md3-switch.on { background: var(--md-primary-container); }
+    .md3-switch.on::after { transform: translateX(20px); background: var(--md-primary); }
+    [data-theme="dark"] .md3-switch { background: var(--md-surface-container-high); }
+    [data-theme="dark"] .md3-switch.on { background: var(--md-primary-container); }
+
+    .player-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; min-height: 96px;
+      background: var(--md-surface-container-low);
+      border-top: 1px solid var(--md-outline-variant); z-index: 9000;
+      display: flex; flex-direction: column;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    }
+    @media (max-width: 768px) { .player-bar { bottom: 0; } }
+    .player-top-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 8px 16px 4px; flex-shrink: 0;
+    }
+    .player-info { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+    .player-thumb {
+      width: 44px; height: 44px; border-radius: var(--md-sys-shape-corner-small);
+      background: var(--md-surface-container); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .player-thumb .material-icons-round { font-size: 22px; color: var(--md-on-surface-variant); }
+    .player-meta { flex: 1; min-width: 0; }
+    .player-title { font-size: 14px; font-weight: 500; color: var(--md-on-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .player-sub { font-size: 11px; color: var(--md-on-surface-variant); margin-top: 1px; }
+    .player-action-btn {
+      width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      transition: color var(--md-motion-3); flex-shrink: 0; color: var(--md-on-surface-variant);
+    }
+    .player-action-btn:hover { color: var(--md-secondary); }
+    .player-action-btn .material-icons-round { font-size: 20px; }
+    .player-progress-row {
+      display: flex; align-items: center; gap: 8px; padding: 4px 16px; flex-shrink: 0;
+    }
+    .player-time { font-size: 11px; color: var(--md-on-surface-variant); width: 38px; flex-shrink: 0; }
+    .player-time.right { text-align: right; }
+    .progress-track {
+      flex: 1; height: 4px; background: var(--md-surface-variant);
+      border-radius: 2px; cursor: pointer; position: relative; overflow: visible; min-width: 80px;
+    }
+    .progress-fill { height: 100%; background: var(--md-primary); border-radius: 2px; width: 0%; }
+    .progress-thumb {
+      position: absolute; top: 50%; left: 0%; transform: translate(-50%, -50%);
+      width: 12px; height: 12px; border-radius: 50%; background: var(--md-primary);
+      opacity: 0; transition: opacity var(--md-motion-3); pointer-events: none;
+    }
+    .progress-track:hover .progress-thumb { opacity: 1; }
+    .player-volume-inline {
+      display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+    }
+    .player-volume-inline .material-icons-round { font-size: 20px; color: var(--md-on-surface-variant); flex-shrink: 0; }
+    .volume-slider {
+      width: 88px; height: 4px; background: var(--md-surface-variant); border-radius: 2px; cursor: pointer;
+      -webkit-appearance: none; appearance: none; flex-shrink: 0;
+    }
+    .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--md-primary); cursor: pointer; }
+    .volume-slider::-webkit-slider-runnable-track { background: transparent; height: 4px; }
+    .player-controls-row {
+      display: flex; align-items: center; justify-content: center; gap: 4px; padding: 0 16px 8px; flex-shrink: 0;
+    }
+    .ctrl-btn {
+      width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      transition: background var(--md-motion-3);
+    }
+    .ctrl-btn:hover { background: var(--md-surface-variant); }
+    .ctrl-btn .material-icons-round { font-size: 24px; color: var(--md-on-surface); }
+    .ctrl-btn.main-btn { background: var(--md-primary); width: 44px; height: 44px; }
+    .ctrl-btn.main-btn .material-icons-round { font-size: 26px; color: var(--md-on-primary); }
+    .ctrl-btn.main-btn:hover { background: var(--md-on-primary-container); }
+    .verify-info {
+      display: none; align-items: center; gap: 6px;
+      padding: 2px 16px 0; flex-shrink: 0; font-size: 10px;
+    }
+    .verify-info.visible { display: flex; }
+    .verify-info .material-icons-round { font-size: 12px; color: var(--md-on-surface-variant); }
+    .verify-badge {
+      padding: 1px 6px; border-radius: var(--md-sys-shape-corner-full); font-size: 10px; font-weight: 500;
+    }
+    .verify-badge.ok { background: var(--md-primary-container); color: var(--md-on-primary-container); }
+    .verify-badge.fail { background: var(--md-error-container); color: var(--md-on-error-container); }
+    .verify-badge.pending { background: var(--md-surface-variant); color: var(--md-on-surface-variant); }
+
+    #snackbar {
+      position: fixed; bottom: 120px; left: 50%;
+      background: var(--md-surface-container-high);
+      color: var(--md-on-surface); padding: 12px 20px; border-radius: 12px; font-size: 13px;
+      z-index: 9999; pointer-events: none; display: flex; align-items: center; gap: 10px;
+      white-space: nowrap; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      opacity: 0; visibility: hidden;
+      transform: translateX(-50%) translateY(80px);
+      max-width: 90vw; will-change: transform, opacity;
+    }
+    #snackbar.show { visibility: visible; animation: snkIn var(--md-motion-6) var(--md-ease-2) forwards; }
+    #snackbar.hide { visibility: visible; animation: snkOut var(--md-motion-6) var(--md-ease-2) forwards; }
+    @keyframes snkIn {
+      from { transform: translateX(-50%) translateY(100%); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    @keyframes snkOut {
+      from { transform: translateX(-50%) translateY(0); opacity: 1; }
+      to { transform: translateX(-50%) translateY(100%); opacity: 0; }
+    }
+    #snackbar .material-icons-round { font-size: 20px; color: var(--md-primary); }
+
+    .immersive-overlay {
+      position: fixed; left: 0; right: 0; top: 0; bottom: 0; z-index: 10000;
+      background: var(--md-background);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 32px; padding: 48px;
+      transform: translateY(100%);
+      transition: transform var(--md-motion-5) var(--md-ease-2);
+    }
+    .immersive-overlay.visible { transform: translateY(0); }
+    .immersive-icon {
+      width: 120px; height: 120px; border-radius: var(--md-sys-shape-corner-extra-large);
+      background: var(--md-surface-container); display: flex; align-items: center; justify-content: center;
+      animation: immersivePulse 3s ease-in-out infinite;
+    }
+    .immersive-icon .material-icons-round { font-size: 56px; color: var(--md-primary); }
+    @keyframes immersivePulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+    .immersive-info { text-align: center; }
+    .immersive-title { font-size: 24px; font-weight: 500; color: var(--md-on-surface); margin-bottom: 8px; }
+    .immersive-sub { font-size: 14px; color: var(--md-on-surface-variant); }
+    .immersive-controls { display: flex; align-items: center; gap: 24px; }
+    .immersive-btn {
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--md-on-surface-variant); transition: background var(--md-motion-3), color var(--md-motion-3);
+    }
+    .immersive-btn:hover { background: var(--md-surface-container-high); color: var(--md-on-surface); }
+    .immersive-btn .material-icons-round { font-size: 28px; }
+    .immersive-btn.play { width: 72px; height: 72px; background: var(--md-primary); color: var(--md-on-primary); }
+    .immersive-btn.play:hover { background: var(--md-on-primary-container); }
+    .immersive-btn.play .material-icons-round { font-size: 36px; }
+    .immersive-progress { width: 100%; max-width: 480px; display: flex; align-items: center; gap: 12px; }
+    .immersive-time { font-size: 12px; color: var(--md-on-surface-variant); width: 44px; flex-shrink: 0; }
+    .immersive-time.right { text-align: right; }
+    .immersive-track { flex: 1; height: 4px; background: var(--md-surface-variant); border-radius: 2px; cursor: pointer; position: relative; }
+    .immersive-fill { height: 100%; background: var(--md-primary); border-radius: 2px; width: 0%; }
+    .immersive-close {
+      position: absolute; top: 16px; left: 16px;
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--md-on-surface-variant); transition: background var(--md-motion-3);
+    }
+    .immersive-close:hover { background: var(--md-surface-container-high); }
+    .immersive-close .material-icons-round { font-size: 24px; }
+
+    @media (max-width: 768px) {
+      #snackbar { bottom: 120px; left: 16px; right: 16px; max-width: none; transform: translateX(0) translateY(100%); white-space: normal; text-align: left; }
+      @keyframes snkIn { from { transform: translateX(0) translateY(100%); opacity: 0; } to { transform: translateX(0) translateY(0); opacity: 1; } }
+      @keyframes snkOut { from { transform: translateX(0) translateY(0); opacity: 1; } to { transform: translateX(0) translateY(100%); opacity: 0; } }
+    }
+
+    .page-title {
+      font-size: 20px; font-weight: 500; color: var(--md-on-surface);
+      padding: 20px 0 8px; flex-shrink: 0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .page-title .material-icons-round { font-size: 22px; color: var(--md-primary); }
+
+    #debug-log {
+      position: fixed; bottom: 110px; right: 16px; width: 360px; height: 300px;
+      background: var(--md-surface-container-high); border-radius: var(--md-sys-shape-corner-large);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25); z-index: 9500;
+      display: flex; flex-direction: column; overflow: hidden;
+      font-family: 'Consolas', 'Monaco', monospace; font-size: 11px;
+      resize: both; min-width: 280px; min-height: 200px;
+    }
+    #debug-log-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 12px; background: var(--md-surface-container); cursor: move;
+      border-bottom: 1px solid var(--md-outline-variant); flex-shrink: 0;
+    }
+    #debug-log-title { font-size: 12px; font-weight: 500; color: var(--md-on-surface); }
+    #debug-log-close { cursor: pointer; color: var(--md-on-surface-variant); }
+    #debug-log-close:hover { color: var(--md-on-surface); }
+    #debug-log-content {
+      flex: 1; overflow-x: hidden; overflow-y: auto; padding: 8px 12px;
+    }
+    .log-entry { margin-bottom: 4px; line-height: 1.4; }
+    .log-entry.info { color: var(--md-on-surface); }
+    .log-entry.debug { color: var(--md-on-surface-variant); }
+    .log-entry.warn { color: var(--md-tertiary-container); }
+    .log-entry.error { color: var(--md-error); }
+    .log-time { opacity: 0.6; margin-right: 6px; }
+
+    .decoding-overlay {
+      position: fixed; inset: 0; z-index: 9500;
+      background: rgba(0,0,0,0.6); display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 16px;
+    }
+    .decoding-overlay.visible { display: flex; }
+    .decoding-box {
+      background: var(--md-surface-container-high);
+      padding: 32px 48px; border-radius: var(--md-sys-shape-corner-extra-large);
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .decoding-box .spinner {
+      width: 48px; height: 48px; border: 4px solid var(--md-outline-variant);
+      border-top-color: var(--md-primary); border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    .decoding-text { font-size: 16px; color: var(--md-on-surface); }
+  </style>
+</head>
+<body>
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <div class="drawer-avatar"><span class="material-icons-round" style="font-size:28px;color:var(--md-on-primary)">music_note</span></div>
+      <div class="drawer-info">
+        <div class="drawer-name">XQ Music</div>
+        <div class="drawer-sub">vgmstream 解码</div>
+      </div>
+    </div>
+    <div class="drawer-nav">
+      <div class="drawer-item ripple-host active" data-page="page-library">
+        <span class="material-icons-round icon">library_music</span>
+        <div class="drawer-item-text">
+          <div class="drawer-item-title">音乐库</div>
+        </div>
+      </div>
+      <div class="drawer-item ripple-host" data-page="page-favorites">
+        <span class="material-icons-round icon">favorite</span>
+        <div class="drawer-item-text">
+          <div class="drawer-item-title">我的收藏</div>
+        </div>
+      </div>
+      <div class="drawer-item ripple-host" data-page="page-settings">
+        <span class="material-icons-round icon">settings</span>
+        <div class="drawer-item-text">
+          <div class="drawer-item-title">设置</div>
+        </div>
+      </div>
+      <div class="drawer-divider"></div>
+      <a class="drawer-item ripple-host" href="https://e-xq.github/xqm" target="_blank">
+        <span class="material-icons-round icon">tune</span>
+        <div class="drawer-item-text">
+          <div class="drawer-item-title">调整</div>
+        </div>
+        <span class="material-icons-round drawer-item-icon-end">open_in_new</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="top-app-bar">
+    <button class="icon-btn ripple-host" id="navToggleBtn" title="导航菜单">
+      <span class="material-icons-round">menu</span>
+    </button>
+    <span class="top-app-bar-title">XQ Music</span>
+    <div class="top-bar-actions">
+      <div class="search-bar" id="searchBar">
+        <span class="material-icons-round">search</span>
+        <input type="text" id="searchInput" placeholder="搜索歌曲...">
+        <button class="search-clear" id="searchClear"><span class="material-icons-round">close</span></button>
+      </div>
+      <button class="icon-btn ripple-host" id="themeToggleBtn" title="切换主题">
+        <span class="material-icons-round">dark_mode</span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="navigation-rail" id="navRail">
+    <div class="nav-rail-item ripple-host active" data-view="library">
+      <span class="material-icons-round icon">library_music</span>
+      <span class="label">音乐库</span>
+    </div>
+    <div class="nav-rail-item ripple-host" data-view="favorites">
+      <span class="material-icons-round icon">favorite</span>
+      <span class="label">收藏</span>
+    </div>
+    <div class="nav-rail-item ripple-host" data-view="settings">
+      <span class="material-icons-round icon">settings</span>
+      <span class="label">设置</span>
+    </div>
+  </nav>
+
+  <div class="main-wrapper">
+    <div class="page-content">
+      <div class="page-view active" id="page-library">
+        <div class="page-title"><span class="material-icons-round">library_music</span>音乐库</div>
+        <div id="lib-loading" class="loading-state">
+          <div class="spinner"></div>
+          <p>加载中...</p>
+        </div>
+        <div class="song-list-card">
+          <div class="list-header">
+            <span class="list-icon-col"></span>
+            <span class="list-title">歌曲</span>
+            <span class="list-meta-col"></span>
+          </div>
+          <div id="song-list" class="song-list" style="display:none;"></div>
+        </div>
+      </div>
+
+      <div class="page-view" id="page-favorites">
+        <div class="page-title"><span class="material-icons-round">favorite</span>我的收藏</div>
+        <div id="fav-empty" class="empty-state" style="display:none;">
+          <span class="material-icons-round">favorite_border</span>
+          <p>暂无收藏歌曲</p>
+        </div>
+        <div class="song-list-card">
+          <div class="list-header">
+            <span class="list-icon-col"></span>
+            <span class="list-title">歌曲</span>
+            <span class="list-meta-col"></span>
+          </div>
+          <div id="fav-list" class="song-list"></div>
+        </div>
+      </div>
+
+      <div class="page-view" id="page-settings">
+        <div class="page-title"><span class="material-icons-round">settings</span>设置</div>
+        <div class="settings-layout">
+          <div class="settings-sidebar">
+            <div class="settings-category-item active ripple-host" data-category="play">
+              <span class="material-icons-round">play_circle</span>
+              <span>播放</span>
+            </div>
+            <div class="settings-category-item ripple-host" data-category="appearance">
+              <span class="material-icons-round">palette</span>
+              <span>主题</span>
+            </div>
+            <div class="settings-category-item ripple-host" data-category="audio">
+              <span class="material-icons-round">graphic_eq</span>
+              <span>音频</span>
+            </div>
+            <div class="settings-category-item ripple-host" data-category="about">
+              <span class="material-icons-round">info</span>
+              <span>关于</span>
+            </div>
+          </div>
+          <div class="settings-content">
+            <div class="settings-panel active" id="settings-play">
+              <div class="settings-panel-title">播放设置</div>
+              <div class="settings-item ripple-host" onclick="cycleMode()">
+                <div class="settings-item-info">
+                  <div class="settings-icon"><span class="material-icons-round">repeat</span></div>
+                  <div class="settings-text">
+                    <div class="title">播放模式</div>
+                    <div class="desc" id="modeDesc">列表循环</div>
+                  </div>
+                </div>
+                <span class="material-icons-round" style="color:var(--md-on-surface-variant)">chevron_right</span>
+              </div>
+              <div class="settings-item ripple-host" id="sw-shuffle-row">
+                <div class="settings-item-info">
+                  <div class="settings-icon"><span class="material-icons-round">shuffle</span></div>
+                  <div class="settings-text">
+                    <div class="title">随机播放</div>
+                    <div class="desc">开启后播放顺序随机</div>
+                  </div>
+                </div>
+                <button class="md3-switch" id="sw-shuffle" role="switch" aria-checked="false"></button>
+              </div>
+            </div>
+            <div class="settings-panel" id="settings-appearance">
+              <div class="settings-panel-title">主题设置</div>
+              <div class="settings-item ripple-host" id="sw-theme-row">
+                <div class="settings-item-info">
+                  <div class="settings-icon"><span class="material-icons-round">dark_mode</span></div>
+                  <div class="settings-text">
+                    <div class="title">深色主题</div>
+                    <div class="desc">开启后使用深色配色</div>
+                  </div>
+                </div>
+                <button class="md3-switch" id="sw-theme" role="switch" aria-checked="false"></button>
+              </div>
+            </div>
+            <div class="settings-panel" id="settings-audio">
+              <div class="settings-panel-title">音频设置</div>
+              <div class="settings-item ripple-host" id="sw-cache-row">
+                <div class="settings-item-info">
+                  <div class="settings-icon"><span class="material-icons-round">cached</span></div>
+                  <div class="settings-text">
+                    <div class="title">解码缓存</div>
+                    <div class="desc">缓存已解码音频加快播放</div>
+                  </div>
+                </div>
+                <button class="md3-switch" id="sw-cache" role="switch" aria-checked="true"></button>
+              </div>
+            </div>
+            <div class="settings-panel" id="settings-about">
+              <div class="settings-panel-title">关于</div>
+              <div class="settings-item ripple-host" id="sw-debug-row" style="display:none;">
+                <div class="settings-item-info">
+                  <div class="settings-icon"><span class="material-icons-round">bug_report</span></div>
+                  <div class="settings-text">
+                    <div class="title">Debug</div>
+                    <div class="desc">启用调试日志输出</div>
+                  </div>
+                </div>
+                <button class="md3-switch" id="sw-debug" role="switch" aria-checked="false"></button>
+              </div>
+              <div class="settings-item">
+                <div class="settings-item-info">
+                  <div class="settings-icon"><span class="material-icons-round">info</span></div>
+                  <div class="settings-text">
+                    <div class="title">XQ Music</div>
+                    <div class="desc">基于 vgmstream-web 解码</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="player-bar" id="playerBar">
+    <div class="player-top-row">
+      <div class="player-info">
+        <div class="player-thumb">
+          <span class="material-icons-round">music_note</span>
+        </div>
+        <div class="player-meta">
+          <div class="player-title" id="playerTitle">未播放</div>
+          <div class="player-sub" id="playerSub">选择歌曲开始播放</div>
+        </div>
+      </div>
+      <button class="player-action-btn ripple-host" id="playerFavBtn" title="收藏">
+        <span class="material-icons-round">favorite_border</span>
+      </button>
+      <button class="player-action-btn ripple-host" id="modeBtn" title="播放模式" onclick="cycleMode()">
+        <span class="material-icons-round" id="modeIcon">repeat</span>
+      </button>
+    </div>
+    <div class="player-progress-row">
+      <span class="player-time" id="curTime">0:00</span>
+      <div class="progress-track" id="progressTrack">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-thumb" id="progressThumb"></div>
+      </div>
+      <span class="player-time right" id="durTime">0:00</span>
+    </div>
+    <div class="player-controls-row">
+      <button class="ctrl-btn ripple-host" id="prevBtn">
+        <span class="material-icons-round">skip_previous</span>
+      </button>
+      <button class="ctrl-btn ripple-host" id="rewindBtn">
+        <span class="material-icons-round">fast_rewind</span>
+      </button>
+      <button class="ctrl-btn main-btn ripple-host" id="playBtn">
+        <span class="material-icons-round" id="playIcon">play_arrow</span>
+      </button>
+      <button class="ctrl-btn ripple-host" id="forwardBtn">
+        <span class="material-icons-round">fast_forward</span>
+      </button>
+      <button class="ctrl-btn ripple-host" id="nextBtn">
+        <span class="material-icons-round">skip_next</span>
+      </button>
+    </div>
+    <div class="verify-info" id="verifyInfo">
+      <span class="material-icons-round">verified</span>
+      <span class="verify-badge pending" id="verifyBadge">等待验证</span>
+    </div>
+  </div>
+
+  <div id="debug-log" style="display:none;">
+    <div id="debug-log-header">
+      <span id="debug-log-title">调试日志</span>
+      <span class="material-icons-round" id="debug-log-close">close</span>
+    </div>
+    <div id="debug-log-content"></div>
+  </div>
+
+  <div class="decoding-overlay" id="decodingOverlay">
+    <div class="decoding-box">
+      <div class="spinner"></div>
+      <div class="decoding-text" id="decodingText">正在解码...</div>
+    </div>
+  </div>
+
+  <div class="immersive-overlay" id="immersiveOverlay">
+    <button class="immersive-close" id="immersiveClose"><span class="material-icons-round">keyboard_arrow_down</span></button>
+    <div class="immersive-icon"><span class="material-icons-round">music_note</span></div>
+    <div class="immersive-info">
+      <div class="immersive-title" id="immersiveTitle">-</div>
+      <div class="immersive-sub" id="immersiveSub">-</div>
+    </div>
+    <div class="immersive-progress">
+      <span class="immersive-time" id="immersiveCur">0:00</span>
+      <div class="immersive-track" id="immersiveTrack">
+        <div class="immersive-fill" id="immersiveFill"></div>
+      </div>
+      <span class="immersive-time right" id="immersiveDur">0:00</span>
+    </div>
+    <div class="immersive-controls">
+      <button class="immersive-btn" id="immersivePrev"><span class="material-icons-round">skip_previous</span></button>
+      <button class="immersive-btn play" id="immersivePlay"><span class="material-icons-round" id="immersivePlayIcon">play_arrow</span></button>
+      <button class="immersive-btn" id="immersiveNext"><span class="material-icons-round">skip_next</span></button>
+    </div>
+  </div>
+
+  <div id="snackbar">
+    <span class="material-icons-round" id="snackbar-icon">check_circle</span>
+    <span id="snackbar-text"></span>
+  </div>
+
+  <script>
+    var S = {
+      list: [], cur: null, favs: new Set(),
+      playing: false, busy: false,
+      mode: 'list',
+      vol: 80, dur: 0, pos: 0,
+      conf: { dark: false, anim: true, cache: true },
+      blobUrl: null
+    };
+
+    var audioCache = {};
+
+    /* IndexedDB 缓存 */
+    function openCacheDB() {
+      return new Promise(function(resolve, reject) {
+        var req = indexedDB.open('xqaudio', 1);
+        req.onerror = function() { reject(req.error); };
+        req.onsuccess = function() { resolve(req.result); };
+        req.onupgradeneeded = function(e) {
+          var db = e.target.result;
+          if(!db.objectStoreNames.contains('audio')) {
+            db.createObjectStore('audio', { keyPath: 'id' });
+          }
+        };
+      });
+    }
+    var cacheDB = null;
+    openCacheDB().then(function(db) { cacheDB = db; }).catch(function() {});
+
+    async function getCachedAudio(id) {
+      if(!cacheDB) return null;
+      return new Promise(function(resolve) {
+        var tx = cacheDB.transaction('audio', 'readonly');
+        var store = tx.objectStore('audio');
+        var req = store.get(id);
+        req.onsuccess = function() { resolve(req.result || null); };
+        req.onerror = function() { resolve(null); };
+      });
+    }
+    async function saveCachedAudio(id, arrayBuffer) {
+      if(!cacheDB) return;
+      return new Promise(function(resolve) {
+        var tx = cacheDB.transaction('audio', 'readwrite');
+        var store = tx.objectStore('audio');
+        store.put({ id: id, data: arrayBuffer, time: Date.now() });
+        tx.oncomplete = resolve;
+        tx.onerror = resolve;
+      });
+    }
+    var vgmCli = {
+        sym: 0, ready: false, loadFailed: false,
+        evs: new Map(), w: null,
+        init: function() {
+          var self = this;
+        dbgLog('初始化 Worker...', 'debug');
+        this.w = new Worker('cli-worker-local.js');
+        this.w.addEventListener('message', function(e) {
+          console.log('收到Worker消息:', e.data);
+          var d = e.data, k = d.symbol || d.subject;
+          if(d.subject === 'log') {
+            dbgLog('[Worker] ' + d.content, d.level || 'debug');
+            return;
+          }
+          dbgLog('Worker消息: symbol=' + d.symbol + ', subject=' + d.subject + ', hasError=' + !!d.error, 'debug');
+          if(self.evs.has(k)) {
+            dbgLog('找到回调, count=' + self.evs.get(k).length, 'debug');
+            self.evs.get(k).forEach(function(cb) {
+              if(d.error) { dbgLog('拒绝Promise: ' + d.error.message, 'debug'); cb.reject(d.error); }
+              else { dbgLog('解决Promise with content', 'debug'); cb.resolve(d.content); }
+            });
+            self.evs.delete(k);
+          } else {
+            dbgLog('没有找到回调 for key: ' + k, 'warn');
+          }
+        });
+        this.w.addEventListener('error', function(e) {
+          dbgLog('Worker错误: ' + e.message, 'error');
+          if(!self.loadFailed) {
+            self.loadFailed = true;
+            self.evs.get('load') && self.evs.get('load').forEach(function(cb) { cb.reject(new Error('Worker加载失败')); });
+          }
+        });
+        dbgLog('Worker已初始化，等待WASM加载...', 'debug');
+      },
+      send: function(subject) {
+        var self = this;
+        var args = Array.prototype.slice.call(arguments, 1);
+        return new Promise(function(resolve, reject) {
+          if(self.loadFailed) { reject(new Error('Worker加载失败')); return; }
+          if(!self.ready) {
+            reject(new Error('WASM未加载'));
+            return;
+          }
+          var sym = ++self.sym;
+          var timeoutId = setTimeout(function() {
+            if(self.evs.has(sym)) {
+              dbgLog('send 超时: subject=' + subject + ', sym=' + sym, 'error');
+              self.evs.get(sym).forEach(function(cb) { cb.reject(new Error('Worker响应超时')); });
+              self.evs.delete(sym);
+            }
+          }, 30000);
+          dbgLog('send: subject=' + subject + ', sym=' + sym, 'debug');
+          self.evs.set(sym, [{ resolve: function(v) { clearTimeout(timeoutId); resolve(v); }, reject: function(e) { clearTimeout(timeoutId); reject(e); } }]);
+          self.w.postMessage({ symbol: sym, subject: subject, content: args });
+        });
+      },
+      on: function(type) {
+        return new Promise(function(resolve, reject) {
+          var evs = vgmCli.evs.get(type) || new Set();
+          evs.add({ resolve: resolve, reject: reject });
+          vgmCli.evs.set(type, evs);
+        });
+      },
+      reload: function() {
+        dbgLog('重新加载 Worker...', 'warn');
+        this.ready = false;
+        this.loadFailed = false;
+        if(this.w) { this.w.terminate(); }
+        this.evs.clear();
+        this.init();
+      }
+    };
+
+    var audio = new Audio();
+
+    audio.addEventListener('timeupdate', function() {
+      if(audio.duration) {
+        S.pos = audio.currentTime;
+        updateProgress();
+      }
+    });
+    audio.addEventListener('loadedmetadata', function() {
+      S.dur = audio.duration;
+      document.getElementById('durTime').textContent = formatTime(S.dur);
+    });
+    audio.addEventListener('ended', function() {
+      S.playing = false;
+      updatePlayBtn();
+      if(S.mode === 'one') {
+        audio.currentTime = 0;
+        audio.play();
+      } else {
+        playNext();
+      }
+    });
+    audio.addEventListener('error', function(e) {
+      dbgLog('音频错误: ' + (e.message || '未知错误'), 'error');
+      showSnack('播放失败', 'error');
+    });
+
+    audio.volume = S.vol / 100;
+    document.getElementById('volumeSlider') && (document.getElementById('volumeSlider').value = S.vol);
+
+    document.addEventListener('DOMContentLoaded', function() {
+      dbgLog('页面加载中...', 'debug');
+      loadConf(); loadFavs(); applyTheme(); initSwitch();
+      initDebugDrag();
+      vgmCli.init();
+      vgmCli.on('load').then(function() {
+        vgmCli.ready = true;
+        dbgLog('WASM加载完成', 'info');
+      }).catch(function(e) {
+        dbgLog('WASM加载失败: ' + e.message, 'error');
+        showSnack('解码器加载失败', 'error');
+      });
+      new Promise(function(res) { res(); }).then(function() {
+        return fetch('BGM_Lobby/File_List.json').then(function(r) {
+          if(!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        });
+      }).then(function(data) {
+        S.list = data.songs || [];
+        dbgLog('加载了 ' + S.list.length + ' 首歌曲', 'info');
+        renderList();
+        document.getElementById('lib-loading').style.display = 'none';
+        document.getElementById('song-list').style.display = 'block';
+      }).catch(function(e) {
+        dbgLog('加载列表失败: ' + (e && e.message || e), 'error');
+        document.getElementById('lib-loading').innerHTML = '<span class="material-icons-round" style="font-size:48px;color:var(--md-error)">error</span><p style="color:var(--md-error)">请先运行 generate_filelist.py 生成列表</p>';
+      });
+    });
+
+    function loadConf() {
+      try { var c = JSON.parse(localStorage.xqmusic_conf || '{}'); Object.assign(S.conf, c); } catch(e) {}
+    }
+    function saveConf() {
+      localStorage.xqmusic_conf = JSON.stringify(S.conf);
+    }
+    function loadFavs() {
+      try { S.favs = new Set(JSON.parse(localStorage.xqmusic_favs || '[]')); } catch(e) {}
+    }
+    function saveFavs() {
+      localStorage.xqmusic_favs = JSON.stringify([...S.favs]);
+    }
+
+    function applyTheme() {
+      document.documentElement.setAttribute('data-theme', S.conf.dark ? 'dark' : 'light');
+      document.getElementById('themeToggleBtn').querySelector('.material-icons-round').textContent = S.conf.dark ? 'light_mode' : 'dark_mode';
+      var swTheme = document.getElementById('sw-theme');
+      if(swTheme) {
+        swTheme.classList.toggle('on', S.conf.dark);
+        swTheme.setAttribute('aria-checked', S.conf.dark);
+      }
+    }
+    function toggleTheme() {
+      S.conf.dark = !S.conf.dark; applyTheme(); saveConf();
+    }
+
+    function getSwitchState(id) {
+      if(id === 'sw-theme') return S.conf.dark;
+      if(id === 'sw-cache') return S.conf.cache;
+      if(id === 'sw-shuffle') return S.mode === 'shuffle';
+      if(id === 'sw-debug') return dbgLogVisible;
+      return false;
+    }
+
+    function initSwitch() {
+      document.querySelectorAll('.md3-switch').forEach(function(el) {
+        var id = el.id;
+        var state = getSwitchState(id);
+        el.classList.toggle('on', state);
+        el.setAttribute('aria-checked', state);
+        var startX = 0, dragging = false;
+        el.addEventListener('mousedown', function(e) {
+          startX = e.clientX; dragging = true;
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', onUp, { once: true });
+        });
+        el.addEventListener('touchstart', function(e) {
+          startX = e.touches[0].clientX; dragging = true;
+        }, { passive: true });
+        el.addEventListener('touchmove', function(e) {
+          if(dragging) {
+            var dx = e.touches[0].clientX - startX;
+            if(Math.abs(dx) > 10) {
+              dragging = false;
+              var isOn = getSwitchState(id);
+              if((dx > 0) !== isOn) {
+                toggleSwitch(id);
+              }
+            }
+          }
+        }, { passive: true });
+        el.addEventListener('touchend', function() {
+          if(dragging) { dragging = false; toggleSwitch(id); }
+        });
+        function onMove(e) {
+          if(dragging) {
+            var dx = e.clientX - startX;
+            if(Math.abs(dx) > 10) {
+              dragging = false;
+              document.removeEventListener('mousemove', onMove);
+              var isOn = getSwitchState(id);
+              if((dx > 0) !== isOn) {
+                toggleSwitch(id);
+              }
+            }
+          }
+        }
+        function onUp() {
+          document.removeEventListener('mousemove', onMove);
+          if(dragging) { dragging = false; toggleSwitch(id); }
+        }
+      });
+    }
+    function toggleSwitch(id) {
+      if(id === 'sw-theme') {
+        toggleTheme();
+      } else if(id === 'sw-shuffle') {
+        var sw = document.getElementById('sw-shuffle');
+        var isOn = sw.classList.contains('on');
+        S.mode = isOn ? 'list' : 'shuffle';
+        sw.classList.toggle('on', !isOn);
+        sw.setAttribute('aria-checked', !isOn);
+        var icons = { list: 'repeat', one: 'repeat_one', shuffle: 'shuffle' };
+        var descs = { list: '列表循环', one: '单曲循环', shuffle: '随机播放' };
+        document.getElementById('modeIcon').textContent = icons[S.mode];
+        document.getElementById('modeDesc').textContent = descs[S.mode];
+      } else if(id === 'sw-cache') {
+        var sw = document.getElementById('sw-cache');
+        S.conf.cache = !sw.classList.contains('on');
+        sw.classList.toggle('on', S.conf.cache);
+        sw.setAttribute('aria-checked', S.conf.cache);
+        saveConf();
+      } else if(id === 'sw-debug') {
+        var sw = document.getElementById('sw-debug');
+        var turnOn = !sw.classList.contains('on');
+        debugEnabled = turnOn;
+        sw.classList.toggle('on', turnOn);
+        sw.setAttribute('aria-checked', turnOn);
+        if(turnOn) {
+          dbgLogVisible = true;
+          document.getElementById('debug-log').style.display = 'flex';
+        } else {
+          dbgLogVisible = false;
+          document.getElementById('debug-log').style.display = 'none';
+        }
+      }
+    }
+
+    function switchView(view) {
+      document.querySelectorAll('.page-view').forEach(function(el) { el.classList.remove('active'); });
+      document.querySelectorAll('.nav-rail-item').forEach(function(el) { el.classList.remove('active'); });
+      document.getElementById('page-' + view).classList.add('active');
+      var navItem = document.querySelector('.nav-rail-item[data-view="' + view + '"]');
+      if(navItem) navItem.classList.add('active');
+      if(view === 'favorites') renderFavs();
+    }
+
+    function renderList() {
+      var el = document.getElementById('song-list');
+      el.innerHTML = '';
+      S.list.forEach(function(s, i) { el.appendChild(makeItem(s, i)); });
+    }
+
+    function renderFavs() {
+      var el = document.getElementById('fav-list');
+      var empty = document.getElementById('fav-empty');
+      var favSongs = S.list.filter(function(s) { return S.favs.has(s.id); });
+      if(!favSongs.length) { empty.style.display = 'flex'; el.style.display = 'none'; return; }
+      empty.style.display = 'none'; el.style.display = 'block';
+      el.innerHTML = '';
+      favSongs.forEach(function(s, i) { el.appendChild(makeItem(s, i)); });
+    }
+
+    function makeItem(song, idx) {
+      var isAct = S.cur && S.cur.id === song.id;
+      var isFav = S.favs.has(song.id);
+      var item = document.createElement('div');
+      item.className = 'song-item' + (isAct ? ' active' : '');
+      item.innerHTML =
+        '<div class="song-icon"><span class="material-icons-round">' + (isAct ? 'equalizer' : 'music_note') + '</span></div>' +
+        '<div class="song-title">' +
+          '<div class="song-title-text">' + song.name + '</div>' +
+          '<div class="song-sub">ID: ' + song.id + '</div>' +
+        '</div>' +
+        '<div class="song-meta">' +
+          '<div class="playing-indicator"><span></span><span></span><span></span><span></span></div>' +
+          '<button class="fav-btn ripple-host' + (isFav ? ' liked' : '') + '" onclick="event.stopPropagation(); toggleFav(' + song.id + ')">' +
+            '<span class="material-icons-round">' + (isFav ? 'favorite' : 'favorite_border') + '</span>' +
+          '</button>' +
+        '</div>';
+      item.onclick = function() { playSong(song); };
+      return item;
+    }
+
+    function toggleFav(id) {
+      if(S.favs.has(id)) { S.favs.delete(id); showSnack('已取消收藏'); }
+      else { S.favs.add(id); showSnack('已添加收藏'); }
+      saveFavs();
+      renderList();
+      if(document.getElementById('page-favorites').classList.contains('active')) renderFavs();
+    }
+    function toggleFavCurrent() { if(S.cur) toggleFav(S.cur.id); }
+    var togFavCur = toggleFavCurrent;
+
+    function cycleMode() {
+      var modes = ['list', 'one', 'shuffle'];
+      var icons = { list: 'repeat', one: 'repeat_one', shuffle: 'shuffle' };
+      var descs = { list: '列表循环', one: '单曲循环', shuffle: '随机播放' };
+      var i = modes.indexOf(S.mode);
+      S.mode = modes[(i + 1) % modes.length];
+      document.getElementById('modeIcon').textContent = icons[S.mode];
+      document.getElementById('modeDesc').textContent = descs[S.mode];
+      showSnack('播放模式: ' + descs[S.mode]);
+    }
+
+    async function playSong(song, retryCount) {
+      if(retryCount === undefined) retryCount = 0;
+      if(S.busy) { showSnack('正在处理，请稍候...'); return; }
+      S.busy = true;
+      try {
+        dbgLog('播放: ' + song.name, 'info');
+        var cached = await getCachedAudio(song.id);
+        if(S.conf.cache && cached && cached.data) {
+          dbgLog('使用缓存: ' + song.name, 'info');
+          if(S.blobUrl) URL.revokeObjectURL(S.blobUrl);
+          S.blobUrl = URL.createObjectURL(new Blob([cached.data], { type: 'audio/wav' }));
+          audio.src = S.blobUrl;
+          S.cur = song;
+          S.playing = true;
+          updatePlayerUI();
+          updatePlayBtn();
+          audio.play();
+          renderList();
+          if(document.getElementById('page-favorites').classList.contains('active')) renderFavs();
+          S.busy = false;
+          return;
+        }
+        showDecoding(true, '正在解码: ' + song.name);
+        var fileUrl = 'BGM_Lobby/' + song.file;
+        dbgLog('获取文件: ' + fileUrl, 'debug');
+        var resp = await fetch(fileUrl);
+        if(!resp.ok) throw new Error('HTTP ' + resp.status);
+        var wemBlob = await resp.blob();
+        var asciiName = song.id + '.wem';
+        var file = new File([wemBlob], asciiName);
+        dbgLog('文件大小: ' + wemBlob.size + ' bytes', 'debug');
+        showDecoding(true, '正在解码...');
+        dbgLog('使用文件名: ' + asciiName, 'debug');
+        var result = await vgmCli.send('convertDir', [file], asciiName, true);
+        dbgLog('解码结果: ' + JSON.stringify(result), 'debug');
+        if(!result || !result.arrayBuffer) {
+          throw new Error('解码返回无效结果');
+        }
+        dbgLog('解码成功', 'info');
+        if(S.blobUrl) URL.revokeObjectURL(S.blobUrl);
+        S.blobUrl = URL.createObjectURL(new Blob([result.arrayBuffer], { type: 'audio/wav' }));
+        if(S.conf.cache) {
+          saveCachedAudio(song.id, result.arrayBuffer);
+        }
+        audio.src = S.blobUrl;
+        S.cur = song;
+        S.playing = true;
+        updatePlayerUI();
+        updatePlayBtn();
+        audio.play();
+        renderList();
+        if(document.getElementById('page-favorites').classList.contains('active')) renderFavs();
+      } catch(e) {
+        var errMsg = e ? (e.message || String(e)) : 'unknown';
+        dbgLog('播放错误: ' + errMsg + ', retryCount=' + retryCount, 'error');
+        /* 特定错误自动重试 */
+        if(retryCount < 2 && (errMsg.includes('Unsupported') || errMsg.includes('响应超时') || errMsg.includes('Worker'))) {
+          dbgLog('尝试重新解码 (retry ' + (retryCount + 1) + ')', 'warn');
+          S.busy = false;
+          showDecoding(false);
+          return playSong(song, retryCount + 1);
+        }
+        console.error('播放错误:', e);
+        showSnack('播放失败: ' + errMsg, 'error');
+      } finally {
+        S.busy = false;
+        showDecoding(false);
+      }
+    }
+
+    function playNext() {
+      if(!S.cur || !S.list.length) return;
+      if(S.mode === 'shuffle') {
+        var idx = Math.floor(Math.random() * S.list.length);
+        playSong(S.list[idx]);
+      } else {
+        var i = S.list.findIndex(function(s) { return s.id === S.cur.id; });
+        i = (i + 1) % S.list.length;
+        playSong(S.list[i]);
+      }
+    }
+    function playPrev() {
+      if(!S.cur || !S.list.length) return;
+      var i = S.list.findIndex(function(s) { return s.id === S.cur.id; });
+      i = (i - 1 + S.list.length) % S.list.length;
+      playSong(S.list[i]);
+    }
+
+    function togglePlay() {
+      if(!S.cur) { if(S.list.length) playSong(S.list[0]); return; }
+      if(S.playing) { audio.pause(); S.playing = false; }
+      else { audio.play(); S.playing = true; }
+      updatePlayBtn();
+    }
+    function updatePlayBtn() {
+      document.getElementById('playIcon').textContent = S.playing ? 'pause' : 'play_arrow';
+      var playingItems = document.querySelectorAll('.song-item.active');
+      playingItems.forEach(function(el) {
+        el.classList.toggle('playing', S.playing);
+      });
+    }
+    function updatePlayerUI() {
+      if(S.cur) {
+        document.getElementById('playerTitle').textContent = S.cur.name;
+        document.getElementById('playerSub').textContent = 'ID: ' + S.cur.id;
+        var favBtn = document.getElementById('playerFavBtn').querySelector('.material-icons-round');
+        favBtn.textContent = S.favs.has(S.cur.id) ? 'favorite' : 'favorite_border';
+      }
+    }
+
+    function updateProgress() {
+      if(!S.dur) return;
+      var pct = (S.pos / S.dur) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressThumb').style.left = pct + '%';
+      document.getElementById('curTime').textContent = formatTime(S.pos);
+      updateImmersive();
+    }
+
+    function fmtTime(s) { return formatTime(s); }
+
+    function formatTime(s) {
+      s = Math.floor(s);
+      var m = Math.floor(s / 60);
+      var sec = s % 60;
+      return m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+
+    function showDecoding(show, text) {
+      var el = document.getElementById('decodingOverlay');
+      if(show) {
+        document.getElementById('decodingText').textContent = text || '正在解码...';
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+      }
+    }
+
+    var snackTimer;
+    function showSnack(text, type) {
+      type = type || 'info';
+      var icon = type === 'error' ? 'error' : 'check_circle';
+      document.getElementById('snackbar-icon').textContent = icon;
+      document.getElementById('snackbar-text').textContent = text;
+      var el = document.getElementById('snackbar');
+      el.classList.remove('show', 'hide');
+      void el.offsetWidth;
+      el.classList.add('show');
+      clearTimeout(snackTimer);
+      snackTimer = setTimeout(function() {
+        el.classList.remove('show');
+        el.classList.add('hide');
+      }, 3000);
+    }
+
+    var dbgLogEl = document.getElementById('debug-log-content');
+    var dbgLogVisible = false;
+    var debugEnabled = false;
+    function dbgLog(msg, level) {
+      level = level || 'debug';
+      if(!debugEnabled) return;
+      if(!dbgLogEl) return;
+      var time = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+      var entry = document.createElement('div');
+      entry.className = 'log-entry ' + level;
+      entry.innerHTML = '<span class="log-time">' + time + '</span>' + msg;
+      dbgLogEl.appendChild(entry);
+      dbgLogEl.scrollTop = dbgLogEl.scrollHeight;
+      console.log('[' + level.toUpperCase() + ']', msg);
+    }
+
+    function initDebugDrag() {
+      var log = document.getElementById('debug-log');
+      var header = document.getElementById('debug-log-header');
+      var dragging = false, startX, startY, initX, initY;
+      header.addEventListener('mousedown', function(e) {
+        dragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        initX = log.offsetLeft;
+        initY = log.offsetTop;
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', function(e) {
+        if(!dragging) return;
+        var dx = e.clientX - startX;
+        var dy = e.clientY - startY;
+        log.style.left = (initX + dx) + 'px';
+        log.style.top = (initY + dy) + 'px';
+        log.style.right = 'auto';
+        log.style.bottom = 'auto';
+      });
+      document.addEventListener('mouseup', function() { dragging = false; });
+    }
+
+    function toggleDebugLog() {
+      var log = document.getElementById('debug-log');
+      dbgLogVisible = !dbgLogVisible;
+      log.style.display = dbgLogVisible ? 'flex' : 'none';
+    }
+
+    document.getElementById('themeToggleBtn').onclick = toggleTheme;
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+      var q = e.target.value.trim().toLowerCase();
+      var clearBtn = document.getElementById('searchClear');
+      clearBtn.style.display = q ? 'flex' : 'none';
+      var el = document.getElementById('song-list');
+      el.innerHTML = '';
+      var filtered = q ? S.list.filter(function(s) { return s.name.toLowerCase().includes(q); }) : S.list;
+      filtered.forEach(function(s, i) { el.appendChild(makeItem(s, i)); });
+    });
+    document.getElementById('searchClear').onclick = function() {
+      document.getElementById('searchInput').value = '';
+      this.style.display = 'none';
+      renderList();
+    };
+
+    document.getElementById('debug-log-close').onclick = function() {
+      dbgLogVisible = false;
+      document.getElementById('debug-log').style.display = 'none';
+    };
+
+    document.getElementById('sw-theme-row').onclick = function(e) {
+      if(e.target.classList.contains('md3-switch')) return;
+      toggleTheme();
+    };
+    document.getElementById('sw-shuffle-row').onclick = function(e) {
+      if(e.target.classList.contains('md3-switch')) return;
+      var sw = document.getElementById('sw-shuffle');
+      var isOn = sw.classList.contains('on');
+      S.mode = isOn ? 'list' : 'shuffle';
+      sw.classList.toggle('on', !isOn);
+      sw.setAttribute('aria-checked', !isOn);
+      var icons = { list: 'repeat', one: 'repeat_one', shuffle: 'shuffle' };
+      var descs = { list: '列表循环', one: '单曲循环', shuffle: '随机播放' };
+      document.getElementById('modeIcon').textContent = icons[S.mode];
+      document.getElementById('modeDesc').textContent = descs[S.mode];
+    };
+    document.getElementById('sw-cache-row').onclick = function(e) {
+      if(e.target.classList.contains('md3-switch')) return;
+      var sw = document.getElementById('sw-cache');
+      S.conf.cache = !sw.classList.contains('on');
+      sw.classList.toggle('on', S.conf.cache);
+      sw.setAttribute('aria-checked', S.conf.cache);
+      saveConf();
+    };
+    document.getElementById('sw-debug-row') && (document.getElementById('sw-debug-row').onclick = function(e) {
+      if(e.target.classList.contains('md3-switch')) return;
+      toggleSwitch('sw-debug');
+    });
+
+    document.querySelectorAll('.settings-category-item').forEach(function(el) {
+      el.onclick = function() {
+        document.querySelectorAll('.settings-category-item').forEach(function(i) { i.classList.remove('active'); });
+        document.querySelectorAll('.settings-panel').forEach(function(p) { p.classList.remove('active'); });
+        el.classList.add('active');
+        document.getElementById('settings-' + el.dataset.category).classList.add('active');
+      };
+    });
+
+    /* 抽屉菜单 */
+    function openDrawer() {
+      document.getElementById('drawerBackdrop').classList.add('visible');
+      document.getElementById('drawer').classList.add('open');
+    }
+    function closeDrawer() {
+      document.getElementById('drawerBackdrop').classList.remove('visible');
+      document.getElementById('drawer').classList.remove('open');
+    }
+    document.getElementById('drawerBackdrop').onclick = closeDrawer;
+    document.getElementById('navToggleBtn').onclick = openDrawer;
+    document.querySelectorAll('.drawer-item').forEach(function(el) {
+      el.onclick = function() {
+        var page = this.dataset.page;
+        switchView(page.replace('page-', ''));
+        closeDrawer();
+        document.querySelectorAll('.drawer-item').forEach(function(i) { i.classList.remove('active'); });
+        this.classList.add('active');
+      };
+    });
+    document.querySelectorAll('.nav-rail-item').forEach(function(el) {
+      el.onclick = function() { switchView(this.dataset.view); };
+    });
+    document.getElementById('playBtn').onclick = togglePlay;
+    document.getElementById('prevBtn').onclick = playPrev;
+    document.getElementById('nextBtn').onclick = playNext;
+    document.getElementById('rewindBtn').onclick = function() { audio.currentTime = Math.max(0, audio.currentTime - 10); };
+    document.getElementById('forwardBtn').onclick = function() { audio.currentTime = Math.min(S.dur, audio.currentTime + 10); };
+    document.getElementById('playerFavBtn').onclick = toggleFavCurrent;
+
+    /* 沉浸模式 */
+    var immersiveOpen = false;
+    document.querySelector('.player-thumb').onclick = function() {
+      if(!S.cur) return;
+      immersiveOpen = true;
+      var ov = document.getElementById('immersiveOverlay');
+      ov.classList.add('visible');
+      updateImmersive();
+    };
+    document.getElementById('immersiveClose').onclick = function() {
+      immersiveOpen = false;
+      document.getElementById('immersiveOverlay').classList.remove('visible');
+    };
+    document.getElementById('immersivePlay').onclick = togglePlay;
+    document.getElementById('immersivePrev').onclick = playPrev;
+    document.getElementById('immersiveNext').onclick = playNext;
+    document.getElementById('immersiveTrack').onclick = function(e) {
+      if(!S.dur) return;
+      var rect = this.getBoundingClientRect();
+      audio.currentTime = ((e.clientX - rect.left) / rect.width) * S.dur;
+    };
+    function updateImmersive() {
+      if(!immersiveOpen) return;
+      document.getElementById('immersiveTitle').textContent = S.cur ? S.cur.name : '-';
+      document.getElementById('immersiveSub').textContent = S.cur ? 'ID: ' + S.cur.id : '-';
+      document.getElementById('immersivePlayIcon').textContent = S.playing ? 'pause' : 'play_arrow';
+      document.getElementById('immersiveFill').style.width = (S.dur ? (S.pos / S.dur * 100) : 0) + '%';
+      document.getElementById('immersiveCur').textContent = fmtTime(S.pos);
+      document.getElementById('immersiveDur').textContent = fmtTime(S.dur);
+    }
+
+    var progTrack = document.getElementById('progressTrack');
+    progTrack.onclick = function(e) {
+      if(!S.dur) return;
+      var rect = progTrack.getBoundingClientRect();
+      var pct = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = pct * S.dur;
+    };
+
+    /* 涟漪动效 */
+    document.addEventListener('click', function(e) {
+      var host = e.target.closest('.ripple-host');
+      if(!host) return;
+      var rect = host.getBoundingClientRect();
+      var size = Math.max(rect.width, rect.height) * 2;
+      var x = e.clientX - rect.left - size / 2;
+      var y = e.clientY - rect.top - size / 2;
+      var span = document.createElement('span');
+      span.className = 'ripple-span';
+      span.style.width = span.style.height = size + 'px';
+      span.style.left = x + 'px';
+      span.style.top = y + 'px';
+      host.appendChild(span);
+      span.addEventListener('animationend', function() { span.remove(); });
+    });
+
+    /* xqdebug 密钥解锁调试模式 - 仅在设置页面有效 */
+    var debugUnlocked = false;
+    var debugKeyBuffer = '';
+    document.addEventListener('keydown', function(e) {
+      if(debugUnlocked) return;
+      var settingsPage = document.getElementById('page-settings').classList.contains('active');
+      if(!settingsPage) return;
+      debugKeyBuffer += e.key.toLowerCase();
+      if(debugKeyBuffer.length > 10) debugKeyBuffer = debugKeyBuffer.slice(-10);
+      if(debugKeyBuffer.includes('xqdebug')) {
+        debugUnlocked = true;
+        debugEnabled = true;
+        document.getElementById('sw-debug-row').style.display = '';
+        var sw = document.getElementById('sw-debug');
+        sw.classList.add('on');
+        sw.setAttribute('aria-checked', 'true');
+        showSnack('Debug 已启用');
+      }
+    });
+
+    /* 快捷键: Ctrl+← 上一首, Ctrl+→ 下一首, 空格 暂停/播放 */
+    document.addEventListener('keydown', function(e) {
+      var tag = e.target.tagName;
+      if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if(e.ctrlKey && e.key === 'ArrowLeft') { e.preventDefault(); playPrev(); }
+      else if(e.ctrlKey && e.key === 'ArrowRight') { e.preventDefault(); playNext(); }
+      else if(e.key === ' ') { e.preventDefault(); togglePlay(); }
+    });
+
+    dbgLog('XQ Music 已初始化', 'info');
+  </script>
+</body>
+</html>
