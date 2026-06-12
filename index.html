@@ -907,7 +907,7 @@
 </head>
 <body>
   <!-- 解码器加载界面 -->
-  <div class="loader-overlay" id="loaderOverlay">
+  <div class="loader-overlay hidden" id="loaderOverlay">
     <div class="loader-content">
       <div class="loader-title">XQ Music</div>
       <div class="loader-subtitle">正在加载解码器</div>
@@ -1485,6 +1485,9 @@
       var loaderOverlay = document.getElementById('loaderOverlay');
       var progressFill = document.getElementById('loaderProgressFill');
       var percentText = document.getElementById('loaderPercent');
+      
+      // 显示加载界面
+      loaderOverlay.classList.remove('hidden');
       
       fetch('vgmstream-cli.wasm').then(function(response) {
         if(!response.ok) throw new Error('HTTP ' + response.status);
