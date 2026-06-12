@@ -871,9 +871,52 @@
     .playlist-item .pl-fav.liked:hover { background: var(--md-secondary-container); }
     .playlist-item.active .pl-fav { color: var(--md-on-secondary-container); }
     .playlist-item.active .pl-fav.liked { color: var(--md-secondary) !important; }
+
+    /* 解码器加载界面 */
+    .loader-overlay {
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--md-background);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loader-overlay.hidden { opacity: 0; visibility: hidden; }
+    .loader-content {
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .loader-title {
+      font-size: 32px; font-weight: 500; color: var(--md-on-background);
+    }
+    .loader-subtitle {
+      font-size: 14px; color: var(--md-on-surface-variant);
+    }
+    .loader-progress-bar {
+      width: 240px; height: 4px;
+      background: var(--md-surface-variant);
+      border-radius: 2px; overflow: hidden;
+    }
+    .loader-progress-fill {
+      height: 100%; width: 0%;
+      background: var(--md-primary);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .loader-percent {
+      font-size: 12px; color: var(--md-on-surface-variant);
+    }
   </style>
 </head>
 <body>
+  <!-- 解码器加载界面 -->
+  <div class="loader-overlay" id="loaderOverlay">
+    <div class="loader-content">
+      <div class="loader-title">XQ Music</div>
+      <div class="loader-subtitle">正在加载解码器</div>
+      <div class="loader-progress-bar">
+        <div class="loader-progress-fill" id="loaderProgressFill"></div>
+      </div>
+      <div class="loader-percent" id="loaderPercent">0%</div>
+    </div>
+  </div>
   <div class="drawer-backdrop" id="drawerBackdrop"></div>
   <div class="drawer" id="drawer">
     <div class="drawer-header">
@@ -1409,6 +1452,90 @@
       dbgLog('页面加载中...', 'debug');
       loadConf(); loadFavs(); applyTheme(); initSwitch();
       initDebugDrag();
+      
+      // 检查wasm是否已缓存
+      checkWasmCache().then(function(cached) {
+        if(cached) {
+          // 已缓存，直接隐藏加载界面
+          dbgLog('WASM已缓存', 'info');
+          hideLoader();
+          initVgmStream();
+        } else {
+          // 未缓存，显示进度条并下载
+          dbgLog('WASM未缓存，开始下载', 'info');
+          downloadWasmWithProgress();
+        }
+      });
+      
+      loadSongList();
+    });
+    
+    function checkWasmCache() {
+      return caches.has('xqmusic-wasm').then(function(hasCache) {
+        if(!hasCache) return false;
+        return caches.open('xqmusic-wasm').then(function(cache) {
+          return cache.match('vgmstream-cli.wasm').then(function(response) {
+            return !!response;
+          });
+        });
+      });
+    }
+    
+    function downloadWasmWithProgress() {
+      var loaderOverlay = document.getElementById('loaderOverlay');
+      var progressFill = document.getElementById('loaderProgressFill');
+      var percentText = document.getElementById('loaderPercent');
+      
+      fetch('vgmstream-cli.wasm').then(function(response) {
+        if(!response.ok) throw new Error('HTTP ' + response.status);
+        var contentLength = response.headers.get('content-length');
+        var total = parseInt(contentLength) || 0;
+        var loaded = 0;
+        
+        var reader = response.body.getReader();
+        var chunks = [];
+        
+        function readChunk() {
+          return reader.read().then(function(result) {
+            if(result.done) {
+              // 下载完成
+              var blob = new Blob(chunks);
+              // 缓存wasm
+              caches.open('xqmusic-wasm').then(function(cache) {
+                cache.put('vgmstream-cli.wasm', new Response(blob));
+              });
+              progressFill.style.width = '100%';
+              percentText.textContent = '100%';
+              setTimeout(function() {
+                hideLoader();
+                initVgmStream();
+              }, 300);
+              return;
+            }
+            chunks.push(result.value);
+            loaded += result.value.length;
+            if(total > 0) {
+              var percent = Math.round((loaded / total) * 100);
+              progressFill.style.width = percent + '%';
+              percentText.textContent = percent + '%';
+            }
+            return readChunk();
+          });
+        }
+        return readChunk();
+      }).catch(function(e) {
+        dbgLog('WASM下载失败: ' + e.message, 'error');
+        hideLoader();
+        showSnack('解码器下载失败', 'error');
+      });
+    }
+    
+    function hideLoader() {
+      var loaderOverlay = document.getElementById('loaderOverlay');
+      loaderOverlay.classList.add('hidden');
+    }
+    
+    function initVgmStream() {
       vgmCli.init();
       vgmCli.on('load').then(function() {
         vgmCli.ready = true;
@@ -1417,6 +1544,9 @@
         dbgLog('WASM加载失败: ' + e.message, 'error');
         showSnack('解码器加载失败', 'error');
       });
+    }
+    
+    function loadSongList() {
       new Promise(function(res) { res(); }).then(function() {
         return fetch('BGM_Lobby/File_List.json').then(function(r) {
           if(!r.ok) throw new Error('HTTP ' + r.status);
@@ -1432,7 +1562,7 @@
         dbgLog('加载列表失败: ' + (e && e.message || e), 'error');
         document.getElementById('lib-loading').innerHTML = '<span class="material-icons-round" style="font-size:48px;color:var(--md-error)">error</span><p style="color:var(--md-error)">找不到音频引索文件</p>';
       });
-    });
+    }
 
     function loadConf() {
       try { var c = JSON.parse(localStorage.xqmusic_conf || '{}'); Object.assign(S.conf, c); } catch(e) {}
