@@ -251,7 +251,7 @@
       display: flex; padding-top: 64px; min-height: 100vh;
     }
     @media (max-width: 768px) {
-      .main-wrapper { flex-direction: column; padding-top: 64px; padding-bottom: 96px; }
+      .main-wrapper { flex-direction: column; padding-top: 64px; padding-bottom: calc(96px + env(safe-area-inset-bottom, 0)); }
     }
 
     .page-content {
@@ -485,6 +485,7 @@
       border-top: 1px solid var(--md-outline-variant); z-index: 9000;
       display: flex; flex-direction: column;
       box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+      padding-bottom: env(safe-area-inset-bottom, 0);
     }
     @media (max-width: 768px) { .player-bar { bottom: 0; } }
     .player-top-row {
@@ -1474,14 +1475,34 @@
       return caches.has('xqmusic-wasm').then(function(hasCache) {
         if(!hasCache) return false;
         return caches.open('xqmusic-wasm').then(function(cache) {
-          return cache.match('vgmstream-cli.wasm').then(function(response) {
+          // 使用完整URL匹配
+          var wasmUrl = new URL('vgmstream-cli.wasm', location.href).href;
+          return cache.match(wasmUrl).then(function(response) {
             return !!response;
           });
         });
       });
     }
     
+    // 请求持久化存储权限
+    function requestPersistentStorage() {
+      if(navigator.storage && navigator.storage.persist) {
+        navigator.storage.persist().then(function(granted) {
+          if(granted) {
+            dbgLog('持久化存储已授权', 'info');
+          } else {
+            dbgLog('持久化存储未授权，浏览器可能会在存储压力下清理缓存', 'warn');
+          }
+        });
+      }
+    }
+    
+    var wasmDownloading = false; // 防止重复下载
+    
     function downloadWasmWithProgress() {
+      if(wasmDownloading) return; // 防止重复调用
+      wasmDownloading = true;
+      
       var loaderOverlay = document.getElementById('loaderOverlay');
       var progressFill = document.getElementById('loaderProgressFill');
       var percentText = document.getElementById('loaderPercent');
@@ -1503,9 +1524,12 @@
             if(result.done) {
               // 下载完成
               var blob = new Blob(chunks);
+              var wasmUrl = new URL('vgmstream-cli.wasm', location.href).href;
               // 缓存wasm
               caches.open('xqmusic-wasm').then(function(cache) {
-                cache.put('vgmstream-cli.wasm', new Response(blob));
+                cache.put(wasmUrl, new Response(blob));
+                // 请求持久化存储
+                requestPersistentStorage();
               });
               progressFill.style.width = '100%';
               percentText.textContent = '100%';
@@ -1518,9 +1542,13 @@
             chunks.push(result.value);
             loaded += result.value.length;
             if(total > 0) {
-              var percent = Math.round((loaded / total) * 100);
+              var percent = Math.min(100, Math.round((loaded / total) * 100));
               progressFill.style.width = percent + '%';
               percentText.textContent = percent + '%';
+            } else {
+              // 没有content-length时显示已下载大小
+              var mb = (loaded / 1024 / 1024).toFixed(1);
+              percentText.textContent = mb + ' MB';
             }
             return readChunk();
           });
@@ -1528,8 +1556,10 @@
         return readChunk();
       }).catch(function(e) {
         dbgLog('WASM下载失败: ' + e.message, 'error');
-        hideLoader();
-        showSnack('解码器下载失败', 'error');
+        wasmDownloading = false; // 允许重试
+        showSnack('解码器下载失败，请保持页面在前台', 'error');
+        // 不隐藏加载界面，让用户知道需要重新加载
+        percentText.textContent = '下载失败，请刷新重试';
       });
     }
     
